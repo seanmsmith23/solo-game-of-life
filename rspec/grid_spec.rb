@@ -8,8 +8,10 @@ require '../src/grid.rb'
 # Assignment: create grid that returns new state with tick() is called
 # 1) start with dead -> dead
 # 2) still life (2x2)
-# 3) oscillator?
-# 4) visualize the grids
+# 3) another still life (6x5)
+# 4) oscillator (5x5)
+# 5) another oscillator (6x6)
+# 6) add recursion to visualize the grid changing
 
 describe Grid do
 
@@ -56,5 +58,56 @@ describe Grid do
     end
   end
 
+  context 'when cells should should stay alive' do
+    it 'should return the same grid' do
+      still_live_grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 1, 0, 0, 1, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ]
+      expect(Grid.new(still_live_grid).tick).to eq(still_live_grid)
+    end
+  end
 
+  context 'when cells should oscillate -- live, die, and be reborn repeatedly' do
+    it 'should return an oscillating grid' do
+      first_grid = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0]
+      ]
+      expect(Grid.new(first_grid).tick).to eq([
+                                                     [0, 0, 0, 0, 0],
+                                                     [0, 0, 0, 0, 0],
+                                                     [0, 1, 1, 1, 0],
+                                                     [0, 0, 0, 0, 0],
+                                                     [0, 0, 0, 0, 0]
+                                                   ])
+    end
+  end
+
+  context 'when cells should oscillate -- live, die, and be reborn repeatedly' do
+    it 'should return an oscillating grid' do
+      first_grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0]
+      ]
+      expect(Grid.new(first_grid).tick).to eq([
+                                                [0, 0, 0, 0, 0, 0],
+                                                [0, 1, 1, 0, 0, 0],
+                                                [0, 1, 1, 0, 0, 0],
+                                                [0, 0, 0, 1, 1, 0],
+                                                [0, 0, 0, 1, 1, 0],
+                                                [0, 0, 0, 0, 0, 0]
+                                              ])
+    end
+  end
 end
