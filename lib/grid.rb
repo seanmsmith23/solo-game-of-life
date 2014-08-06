@@ -17,6 +17,7 @@ class Grid
 
   def tick
     new_grid = []
+    row_array = []
     @grid.each_with_index do |row, row_index|
       row.each_with_index do |cell, column_index|
 
@@ -25,21 +26,23 @@ class Grid
         if cell == 0
 
           if number_of_live_neighbors(row_index, column_index) == 3
-            new_grid[row_index, column_index] = 1
+            row_array[row_index, column_index] = 1
           else
-            new_grid[row_index, column_index] = 0
+            row_array[row_index, column_index] = 0
           end
 
         elsif cell == 1
 
           if number_of_live_neighbors(row_index, column_index) < 2
-            new_grid[row_index, column_index] = 0
+            row_array[row_index, column_index] = 0
           elsif number_of_live_neighbors(row_index, column_index) > 3
-            new_grid[row_index, column_index] = 0
+            row_array[row_index, column_index] = 0
           else
-            new_grid[row_index, column_index] = 1
+            row_array[row_index, column_index] = 1
           end
         end
+
+        new_grid.push(row_array)
       end
     end
     new_grid
