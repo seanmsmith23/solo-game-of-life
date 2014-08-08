@@ -11,14 +11,15 @@ class Grid
     @board.each_with_index do |row, y|
       row.each_with_index do |cell, x|
         alive = 0
-        alive += 1 if x < width && @board[y][x+1] == 1
-        alive += 1 if x > 0 && (@board[y][x-1] == 1)
-        alive += 1 if y > 0 && @board[y-1][x] == 1
-        alive += 1 if y < height && @board[y+1][x] == 1
-        alive += 1 if y < height && x < width && @board[y+1][x+1] == 1
-        alive += 1 if y > 0 && x < width && @board[y-1][x+1] == 1
-        alive += 1 if  y > 0 && x > 0 && @board[y-1][x-1] == 1
-        alive += 1 if y < height && x > 0 && @board[y+1][x-1] == 1
+        alive += 1 if x < width &&                @board[y][x+1] == 1
+        alive += 1 if x > 0 &&                    @board[y][x-1] == 1
+        alive += 1 if y > 0 &&                    @board[y-1][x] == 1
+        alive += 1 if y < height &&               @board[y+1][x] == 1
+        alive += 1 if y < height && x < width &&  @board[y+1][x+1] == 1
+        alive += 1 if y > 0 && x < width &&       @board[y-1][x+1] == 1
+        alive += 1 if  y > 0 && x > 0 &&          @board[y-1][x-1] == 1
+        alive += 1 if y < height && x > 0 &&      @board[y+1][x-1] == 1
+        
         new_board[y][x] = live_or_die(alive, @board[y][x])
       end
     end
